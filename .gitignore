@@ -1,0 +1,3 @@
+# dependencies
+/backend/server-a/node_modules
+/backend/server-b/node_modules

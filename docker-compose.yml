@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend  
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  
+    networks:
+      - frontend  
+
+  server-a:
+    build:
+      context: ./backend/server-a
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+    command: ["./utils/wait-for-it.sh", "rabbitmq:5672", "--", "npm", "start"]
+
+  server-b:
+    build:
+      context: ./backend/server-b
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  
+    depends_on:
+      - rabbitmq
+    networks:
+      - backend
+    command: ["./utils/wait-for-it.sh", "rabbitmq:5672", "--", "npm", "start"]
+
+  rabbitmq:
+    image: "rabbitmq:latest"  
+    ports:
+      - "5672:5672"  # Expose RabbitMQ port
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+
+  backend:
+    driver: bridge

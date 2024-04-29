@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Frontend",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "sourceMaps": true,
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
+            "name": "Debug Backend - Server A",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/server-a/server.js",
+            "runtimeArgs": ["--inspect"],
+            "cwd": "${workspaceFolder}/backend",
+            "skipFiles": ["<node_internals>/**"],
+            "sourceMaps": true,
+            "outFiles": ["${workspaceFolder}/backend/server-a/**/*.js"]
+        },
+        {
+            "name": "Debug Backend - Server B",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/server-b/server.js",
+            "runtimeArgs": ["--inspect"],
+            "cwd": "${workspaceFolder}/backend",
+            "skipFiles": ["<node_internals>/**"],
+            "sourceMaps": true,
+            "outFiles": ["${workspaceFolder}/backend/server-b/**/*.js"]
+        }
+    ]
+}

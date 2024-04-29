@@ -1,0 +1,57 @@
+swagger: '2.0'
+info:
+  title: Make me a sandwich API
+  version: 1.1.0
+paths:
+  /order:
+    post:
+      summary: Add a new sandwich order
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: order
+          description: Sandwich order details
+          schema:
+            type: object
+            properties:
+              sandwich:
+                type: string
+              ingredients:
+                type: array
+                items:
+                  type: string
+            required:
+              - sandwich
+      responses:
+        '201':
+          description: Order added successfully
+          schema:
+            type: object
+            properties:
+              orderId:
+                type: string
+        '400':
+          description: Bad request
+
+  /order/{orderId}:
+    get:
+      summary: Retrieve order status
+      parameters:
+        - in: path
+          name: orderId
+          description: The ID of the order
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Order status retrieved successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+        '404':
+          description: Order not found
